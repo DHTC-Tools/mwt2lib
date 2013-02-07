@@ -9,7 +9,7 @@ def units(n, precision=2):
 	while n >= 1000 and suffices:
 		n /= 1000.0
 		suffices = suffices[1:]
-	fmt = '%%.%dg%%sB' % precision
+	fmt = '%%.%df%%sB' % precision
 	return fmt % (n, suffices[0])
 
 
