@@ -4,12 +4,13 @@ def uniq(items):
 	return list(set(items))
 
 
-def units(n):
+def units(n, precision=2):
 	suffices = [''] + list('KMGTPEZY')
 	while n >= 1000 and suffices:
 		n /= 1000.0
 		suffices = suffices[1:]
-	return '%.4g%sB' % (n, suffices[0])
+	fmt = '%%.%dg%%sB' % precision
+	return fmt % (n, suffices[0])
 
 
 def importer(*args):
