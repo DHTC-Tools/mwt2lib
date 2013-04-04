@@ -55,6 +55,11 @@ class cache(dict):
 		self._lookup = lookup
 		dict.__init__(self)
 
+	def __getitem__(self, key):
+		if key not in self:
+			self[key] = self._lookup(key)
+		return dict.__getitem__(self, key)
+
 
 class formatter(object):
 	'''formatter is a generalized string-templating class.
@@ -111,8 +116,3 @@ class formatter(object):
 					return res
 			return ''
 		return self.rx.sub(resolver, s)
-
-	def __getitem__(self, key):
-		if key not in self:
-			self[key] = self._lookup(key)
-		return dict.__getitem__(self, key)
