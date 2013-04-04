@@ -49,16 +49,36 @@ class jsdict(dict):
 		return dict.__getitem__(self, key)
 
 
+class nil(object):
+	'''a nonexistence assertion'''
+
+
 class cache(dict):
 	'''A dictionary that acts as a cache to a lookup function.'''
+
 	def __init__(self, lookup):
 		self._lookup = lookup
 		dict.__init__(self)
 
+	def _cache(self, key):
+		v = self._lookup(key)
+		self[key] = v
+		return v
+
 	def __getitem__(self, key):
-		if key not in self:
-			self[key] = self._lookup(key)
-		return dict.__getitem__(self, key)
+		if dict.__contains__(self, key):
+			v = dict.__getitem__(self, key)
+		else:
+			v = self._lookup(key)
+			self[key] = v
+		if v is nil:
+			raise KeyError, key
+		return v
+
+	def __contains__(self, key):
+		if self.__getitem__(key) is not nil:
+			return True
+		return False
 
 
 class formatter(object):
