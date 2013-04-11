@@ -4,6 +4,21 @@
 
 
 class mounts(object):
+	'''Produce an iterator that can be used to retrieve information
+	about mounted filesystems.  Each iteration returns one "mount"
+	object with the following attributes:
+
+	* mountpoint - the directory at which the fs is mounted
+	* dev - the device or other origin for the mount
+	* type - the filssytem type (if available)
+	* opts - a dictionary of mount options
+	* stat - a statvfs() object for the mount
+
+	import mwt2
+	for mount in mwt2.system.mounts():
+		print '%(dev)s mounted on %(mountpoint)s as %(type)s' % mount.__dict__
+	'''
+
 	import os
 	import re
 	import platform
