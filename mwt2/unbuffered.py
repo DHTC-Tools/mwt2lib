@@ -13,7 +13,7 @@ class shell(object):
 	output via read().
 	'''
 
-	def __init__(self, args):
+	def __init__(self, *args):
 		rfd, wfd = os.openpty()
 
 		pid = os.fork()
