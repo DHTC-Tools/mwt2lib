@@ -16,9 +16,9 @@ class shell(object):
 	def __init__(self, *args):
 		rfd, wfd = os.openpty()
 
-		pid = os.fork()
+		self.child = os.fork()
 
-		if pid == 0:
+		if self.child == 0:
 			os.close(rfd)
 			sys.stdout.close()
 			os.dup2(wfd, 1)
